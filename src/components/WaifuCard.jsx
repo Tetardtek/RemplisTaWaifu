@@ -1,20 +1,21 @@
-import React from 'react';
-import WaifuBanq from '../components/WaifuBanq';
+import React from "react";
+import { useTetardCoin } from "../context/TetardCoinContext";
 
-function WaifuCard({ currentWaifu }) {
-  const imageSrc = WaifuBanq[currentWaifu].imgSrc;
-  const isImageAvailable = imageSrc !== undefined && imageSrc !== '';
+function WaifuCard({ waifu }) {
+  const { tetardCoin, setTetardCoin, incrementClick } = useTetardCoin();
+
+  const handleIncrement = () => {
+    setTetardCoin((prevTetardCoin) => prevTetardCoin + incrementClick);
+    waifu.changeCount += incrementClick;
+  };
 
   return (
     <div className="waifu-card">
-      <h3>{WaifuBanq[currentWaifu].name}</h3>
-      {isImageAvailable ? (
-        <img src={imageSrc} alt={WaifuBanq[currentWaifu].name} />
-      ) : (
-        <p>Image non disponible</p>
-      )}
-      <p>Type d'énergie : {WaifuBanq[currentWaifu].type}</p>
-      <p>Count : {WaifuBanq[currentWaifu].count}</p>
+      <h3>{waifu.name}</h3>
+      <img src={waifu.imgSrc} alt={waifu.name} />
+      <p>Type: {waifu.type}</p>
+      <p>Count: {waifu.count}</p>
+      <button onClick={handleIncrement}>Cliquez pour obtenir des TetardCoin</button>
     </div>
   );
 }

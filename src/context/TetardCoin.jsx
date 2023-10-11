@@ -1,8 +1,8 @@
-import React from 'react';
-import { TetardCoinContext } from './TetardCoinContext';
+import React from "react";
+import { useTetardCoin } from "./TetardCoinContext";
 
 function TetardCoin() {
-  const { tetardCoin, incrementClick, incrementTetardCoin } = React.useContext(TetardCoinContext);
+  const { tetardCoin, incrementClick, incrementTetardCoin } = useTetardCoin();
 
   const handleIncrement = () => {
     incrementTetardCoin(incrementClick);

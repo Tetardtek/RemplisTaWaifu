@@ -23,27 +23,11 @@ export function TetardCoinProvider({ children }) {
     return () => clearInterval(passiveGenerationInterval);
   }, [incrementPerSecond]);
 
-  // Fonctions pour mettre à jour les améliorations
-  const upgradeIncrementPerSecond = (amount) => {
-    setIncrementPerSecond((prevIncrementPerSecond) => prevIncrementPerSecond + amount);
-  };
-
-  const upgradeIncrementClick = (amount) => {
-    setIncrementClick((prevIncrementClick) => prevIncrementClick + amount);
-  };
-
   return (
-    <TetardCoinContext.Provider
-      value={{
-        tetardCoin,
-        incrementClick,
-        incrementPerSecond,
-        incrementTetardCoin,
-        upgradeIncrementPerSecond,
-        upgradeIncrementClick,
-      }}
-    >
+    <TetardCoinContext.Provider value={{ tetardCoin, setTetardCoin, incrementClick, incrementTetardCoin }}>
       {children}
     </TetardCoinContext.Provider>
   );
 }
+
+export default TetardCoinProvider;

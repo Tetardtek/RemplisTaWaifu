@@ -6,7 +6,10 @@ function WaifuCard({ waifu }) {
 
   const handleIncrement = () => {
     setTetardCoin((prevTetardCoin) => prevTetardCoin + incrementClick);
-    waifu.changeCount += incrementClick;
+    // Créez une nouvelle copie de l'objet waifu avec la propriété changeCount mise à jour.
+    const updatedWaifu = { ...waifu, changeCount: waifu.changeCount + incrementClick };
+    // Appel d'une fonction de mise à jour fournie par votre composant parent pour mettre à jour le waifu.
+    onWaifuUpdate(updatedWaifu);
   };
 
   return (

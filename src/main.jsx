@@ -1,9 +1,7 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './index.css';
-import { TetardCoinProvider } from './components/TetardCoinContext';
+import { TetardCoinProvider } from './context/TetardCoinProvider'; // Utilisez le chemin correct
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

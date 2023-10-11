@@ -1,42 +1,40 @@
 import React from 'react';
+import { useTetardCoin } from '../context/TetardCoin';
 
-function Ameliorations({ tetardCoin, setNiveauAmelioration1, setNiveauAmelioration2 }) {
-  const calculerPrixAmelioration1 = (niveau) => Math.round(50 * Math.pow(1.1, niveau));
-  const calculerPrixAmelioration2 = (niveau) => Math.round(500 * Math.pow(1.1, niveau));
+function Ameliorations() {
+  const { tetardCoin, upgradeIncrementPerSecond, upgradeIncrementClick } = useTetardCoin();
 
-  const achatAmelioration1 = (niveau) => {
-    const prix = calculerPrixAmelioration1(niveau);
+  const acheterAmelioration = (prix, increment, type) => {
     if (tetardCoin >= prix) {
-      setNiveauAmelioration1(niveau + 1);
+      // Dépensez les TetardCoins et mettez à jour les améliorations
+      setTetardCoin((prevTetardCoin) => prevTetardCoin - prix);
+      if (type === 'active') {
+        upgradeIncrementClick(increment);
+      } else if (type === 'passive') {
+        upgradeIncrementPerSecond(increment);
+      }
+    } else {
+      alert("Vous n'avez pas assez de TetardCoin pour acheter cette amélioration.");
     }
-  };
-
-  const achatAmelioration2 = (niveau) => {
-    const prix = calculerPrixAmelioration2(niveau);
-    if (tetardCoin >= prix) {
-      setNiveauAmelioration2(niveau + 1);
-    }
-  };
+  }
 
   return (
     <div>
       <h2>Magasin d'Améliorations</h2>
       <p>TetardCoin: {tetardCoin}</p>
       <div>
-        <p>Amélioration Active:</p>
-        <p>Niveau: {niveauAmelioration1}</p>
-        <p>Prix: {calculerPrixAmelioration1(niveauAmelioration1)} TetardCoin</p>
-        <button onClick={() => achatAmelioration1(niveauAmelioration1)}>
-          Acheter
+        <p>Améliorations Actives:</p>
+        <button onClick={() => acheterAmelioration(prixActive1, incrementActive1, 'active')}>
+          Acheter Niveau 1 (+1)
         </button>
+        {/* Ajoutez d'autres boutons d'amélioration active ici */}
       </div>
       <div>
-        <p>Amélioration Passive:</p>
-        <p>Niveau: {niveauAmelioration2}</p>
-        <p>Prix: {calculerPrixAmelioration2(niveauAmelioration2)} TetardCoin</p>
-        <button onClick={() => achatAmelioration2(niveauAmelioration2)}>
-          Acheter
+        <p>Améliorations Passives:</p>
+        <button onClick={() => acheterAmelioration(prixPassive1, incrementPassive1, 'passive')}>
+          Acheter Niveau 1 (+1)
         </button>
+        {/* Ajoutez d'autres boutons d'amélioration passive ici */}
       </div>
     </div>
   );

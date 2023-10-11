@@ -8,23 +8,34 @@ export const useTetardCoin = () => {
 
 export function TetardCoinProvider({ children }) {
   const [tetardCoin, setTetardCoin] = useState(0);
-  const [incrementClick, setIncrementClick] = useState(1);
-  const [incrementPerSecond, setIncrementPerSecond] = useState(1);
+  const [ameliorationActivesNiveau, setAmeliorationActivesNiveau] = useState(1);
+  const [ameliorationPassivesNiveau, setAmeliorationPassivesNiveau] = useState(1);
 
   const incrementTetardCoin = (amount) => {
     setTetardCoin((prevTetardCoin) => prevTetardCoin + amount);
   };
 
   useEffect(() => {
+    // Calculez le taux d'incrémentation par seconde en fonction des niveaux actuels
+    const incrementPerSecond = ameliorationPassivesNiveau * 1; // Exemple : +1 par niveau
     const passiveGenerationInterval = setInterval(() => {
       incrementTetardCoin(incrementPerSecond);
     }, 1000);
 
     return () => clearInterval(passiveGenerationInterval);
-  }, [incrementPerSecond]);
+  }, [ameliorationPassivesNiveau]);
 
   return (
-    <TetardCoinContext.Provider value={{ tetardCoin, setTetardCoin, incrementClick, incrementTetardCoin }}>
+    <TetardCoinContext.Provider
+      value={{
+        tetardCoin,
+        setTetardCoin,
+        ameliorationActivesNiveau,
+        setAmeliorationActivesNiveau,
+        ameliorationPassivesNiveau,
+        setAmeliorationPassivesNiveau,
+      }}
+    >
       {children}
     </TetardCoinContext.Provider>
   );

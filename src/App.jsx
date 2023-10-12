@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useTetardCoin } from "./context/TetardCoinContext";
-import TetardCoin from "./context/TetardCoin";
-import Ameliorations from "./components/Ameliorations";
-import WaifuCard from "./components/WaifuCard";
-import WaifuBanq from "./components/WaifuBanq";
+import { useTetardCoin } from "./components/TetardCoin/TetardCoinContext";
+import TetardCoin from "./components/TetardCoin/TetardCoin";
+import Ameliorations from "./components/TetardCoin/Ameliorations";
+import WaifuCard from "./components/WaifuCard/WaifuCard";
+import WaifuBanq from "./components/WaifuCard/WaifuBanq";
 
 function App() {
   const { incrementClick, incrementPerSecond } = useTetardCoin();

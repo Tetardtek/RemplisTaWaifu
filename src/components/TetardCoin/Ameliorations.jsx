@@ -1,5 +1,5 @@
 import React from "react";
-import { useTetardCoin } from "../context/TetardCoinContext";
+import { useTetardCoin } from "./TetardCoinContext";
 
 function Ameliorations() {
   const {

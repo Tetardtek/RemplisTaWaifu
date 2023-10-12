@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import WaifuBanq from "./WaifuBanq";
-import { TetardCoinContext } from "../context/TetardCoinContext";
+import { TetardCoinContext } from "../TetardCoin/TetardCoinContext";
 
 function WaifuCard({ waifu, onRandomWaifu, onWaifuUpdate }) {
   const [isEnergyFull, setIsEnergyFull] = useState(false);

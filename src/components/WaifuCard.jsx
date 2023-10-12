@@ -13,7 +13,7 @@ function WaifuCard({ waifu, onRandomWaifu, onWaifuUpdate }) {
       const randomIndex = Math.floor(Math.random() * WaifuBanq.length);
       onRandomWaifu(WaifuBanq[randomIndex]);
       setIsEnergyFull(false);
-      setWaifuCurrentCount(0); // Réinitialisation de waifuCurrentCount à 0
+      setWaifuCurrentCount(0);
     }
   };
 
@@ -32,7 +32,7 @@ function WaifuCard({ waifu, onRandomWaifu, onWaifuUpdate }) {
   };
 
   const handleChangeWaifuClick = () => {
-    if (isEnergyFull) {
+    if (isEnergyFull && typeof onWaifuUpdate === 'function') {
       const randomIndex = Math.floor(Math.random() * WaifuBanq.length);
       const newWaifu = WaifuBanq[randomIndex];
       onRandomWaifu(newWaifu);

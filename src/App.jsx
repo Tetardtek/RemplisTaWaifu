@@ -3,11 +3,11 @@ import { useTetardCoin } from "./context/TetardCoinContext";
 import TetardCoin from "./context/TetardCoin";
 import Ameliorations from "./components/Ameliorations";
 import WaifuCard from "./components/WaifuCard";
-import WaifuBanq from "./components/WaifuBanq"; 
+import WaifuBanq from "./components/WaifuBanq";
 
 function App() {
   const { incrementClick, incrementPerSecond } = useTetardCoin();
-  
+
   const [currentWaifu, setCurrentWaifu] = useState(getRandomWaifu());
 
   function getRandomWaifu() {
@@ -15,12 +15,20 @@ function App() {
     return { ...WaifuBanq[randomIndex] };
   }
 
+  const handleWaifuUpdate = () => {
+    setCurrentWaifu(getRandomWaifu());
+  };
+
   return (
     <div className="App">
       <h1>Waifu : {currentWaifu.name}</h1>
       <img src={currentWaifu.imgSrc} alt={currentWaifu.name} />
 
-      <WaifuCard waifu={currentWaifu} onRandomWaifu={() => setCurrentWaifu(getRandomWaifu())} />
+      <WaifuCard
+        waifu={currentWaifu}
+        onRandomWaifu={handleWaifuUpdate}
+        onWaifuUpdate={handleWaifuUpdate}
+      />
 
       <TetardCoin />
 

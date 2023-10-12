@@ -23,8 +23,15 @@ export function TetardCoinProvider({ children }) {
     return () => clearInterval(passiveGenerationInterval);
   }, [incrementPerSecond]);
 
+  const value = {
+    tetardCoin,
+    setTetardCoin,
+    incrementClick,
+    incrementTetardCoin,
+  };
+
   return (
-    <TetardCoinContext.Provider value={{ tetardCoin, setTetardCoin, incrementClick, incrementTetardCoin }}>
+    <TetardCoinContext.Provider value={value}>
       {children}
     </TetardCoinContext.Provider>
   );

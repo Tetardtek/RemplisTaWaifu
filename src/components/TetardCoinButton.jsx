@@ -6,8 +6,8 @@ function TetardCoinButton() {
 
   // Fonction pour gagner des TetardCoin en cliquant sur le bouton.
   const handleIncrementTetardCoin = () => {
-    // Incrémente le nombre de TetardCoin gagnés.
-    setTetardCoinGained(tetardCoinGained + 1);
+    // Utilisez la fonction de mise à jour avec une fonction pour éviter les problèmes d'asynchronisme.
+    setTetardCoinGained((prevTetardCoinGained) => prevTetardCoinGained + 1);
   };
 
   return (

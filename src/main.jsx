@@ -1,9 +1,11 @@
 import React from 'react';
-import { createRoot } from "react-dom/client"; // Importez createRoot depuis react-dom/client
+import { createRoot } from 'react-dom/client';
 import App from './App';
-import { TetardCoinProvider } from './context/TetardCoinProvider';
+import { TetardCoinProvider } from './context/TetardCoinContext';
 
-createRoot(document.getElementById('root')).render( // Utilisez createRoot au lieu de ReactDOM.createRoot
+const rootElement = document.getElementById('root');
+
+createRoot(rootElement).render(
   <React.StrictMode>
     <TetardCoinProvider>
       <App />

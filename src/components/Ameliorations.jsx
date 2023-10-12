@@ -1,58 +1,53 @@
-// Ameliorations.jsx
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 
-function Ameliorations({ tetardCoin, onAmelioration1, onAmelioration2, setTetardCoin, niveauAmelioration2 }) {
+function Ameliorations({ tetardCoin, setTetardCoin }) {
   const [amelioration1Niveau, setAmelioration1Niveau] = useState(1);
   const [amelioration2Niveau, setAmelioration2Niveau] = useState(1);
 
-  const amelioration1Prix = Math.floor(50 * Math.pow(1.1, amelioration1Niveau));
-  const amelioration2Prix = Math.floor(50 * Math.pow(1.1, niveauAmelioration2));
+  const basePrix = 50;
+  const tauxIncrementation = 0.1;
 
-  const acheterAmelioration1 = (amount) => {
-    const coutTotal = amelioration1Prix * amount;
-    if (tetardCoin >= coutTotal) {
-      setTetardCoin(tetardCoin - coutTotal); // Décrémente TetardCoin
-      onAmelioration1(amount);
-      setAmelioration1Niveau(amelioration1Niveau + amount);
-    }
-  };
+  const amelioration1Prix = useMemo(() => Math.floor(basePrix * Math.pow(1 + tauxIncrementation, amelioration1Niveau - 1)), [amelioration1Niveau]);
+  const amelioration2Prix = useMemo(() => Math.floor(basePrix * Math.pow(1 + tauxIncrementation, amelioration2Niveau - 1)), [amelioration2Niveau]);
 
-  const acheterAmelioration2 = (amount) => {
-    const coutTotal = amelioration2Prix * amount;
-    if (tetardCoin >= coutTotal) {
-      setTetardCoin(tetardCoin - coutTotal); // Décrémente TetardCoin
-      onAmelioration2(amount);
-      setAmelioration2Niveau(amelioration2Niveau + amount);
+  const acheterAmelioration = (amelioration, amount) => {
+    const coutTotal = amelioration === 1 ? amelioration1Prix * amount : amelioration2Prix * amount;
+
+    if (coutTotal <= tetardCoin) {
+      if (amelioration === 1) {
+        setAmelioration1Niveau(amelioration1Niveau + amount);
+      } else if (amelioration === 2) {
+        setAmelioration2Niveau(amelioration2Niveau + amount);
+      }
+
+      setTetardCoin(tetardCoin - coutTotal);
+    } else {
+      console.log("Pas assez de TetardCoin pour acheter cette amélioration.");
     }
   }
 
   return (
-    <div>
+    <div className="divMagasinAmelio">
       <h2>Magasin d'Améliorations</h2>
-      <p>TetardCoin: {tetardCoin}</p>
-      <div>
-        <p>Améliorations Actives (Niveau {amelioration1Niveau}) :</p>
-        <button onClick={() => acheterAmelioration1(1)}>
-          (+1) - {amelioration1Prix} TetardCoin
-        </button>
-        <button onClick={() => acheterAmelioration1(10)}>
-          (+10) - {Math.floor(amelioration1Prix * 10)} TetardCoin
-        </button>
-        <button onClick={() => acheterAmelioration1(100)}>
-          (+100) - {Math.floor(amelioration1Prix * 100)} TetardCoin
-        </button>
+      <div className="divAmelioActives">
+        <p>Améliorations Actives :</p>
+        {[1, 3, 10, 100].map((amount) => (
+          <div key={amount}>
+            Price: <button className="amelioActives" onClick={() => acheterAmelioration(1, amount)}>
+              {Math.floor(amelioration1Prix * amount)} - (+{amount})
+            </button>
+          </div>
+        ))}
       </div>
-      <div>
-        <p>Améliorations Passives (Niveau {amelioration2Niveau}) :</p>
-        <button onClick={() => acheterAmelioration2(1)}>
-          (+1) - {amelioration2Prix} TetardCoin
-        </button>
-        <button onClick={() => acheterAmelioration2(10)}>
-          (+10) - {Math.floor(amelioration2Prix * 10)} TetardCoin
-        </button>
-        <button onClick={() => acheterAmelioration2(100)}>
-          (+100) - {Math.floor(amelioration2Prix * 100)} TetardCoin
-        </button>
+      <div className="divAmelioPassives">
+        <p>Améliorations Passives :</p>
+        {[1, 3, 10, 100].map (amount => (
+          <div key={amount}>
+            Price: <button className="amelioPassives" onClick={() => acheterAmelioration(2, amount)}>
+              {Math.floor(amelioration2Prix * amount)} - (+{amount})
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

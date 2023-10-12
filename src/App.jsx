@@ -1,59 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
-import WaifuCarousel from "./components/WaifuCarousel";
-import TetardCoin from "./context/TetardCoin";
+import { useTetardCoin } from "./context/TetardCoinContext";
 import WaifuBanq from "./components/WaifuBanq";
 import Ameliorations from "./components/Ameliorations";
 
 function App() {
-  const [tetardCoin, setTetardCoin] = useState(0);
-  const [niveauAmelioration1, setNiveauAmelioration1] = useState(1);
-  const [niveauAmelioration2, setNiveauAmelioration2] = useState(1);
+  const {
+    tetardCoin,
+    incrementTetardCoin,
+    incrementPerSecond,
+    incrementClick,
+    setIncrementClick,
+  } = useTetardCoin();
 
-  const acheterAmelioration1 = (amount) => {
-    const coutTotal = Math.floor(50 * Math.pow(1.1, niveauAmelioration1)) * amount;
-    if (tetardCoin >= coutTotal) {
-      setTetardCoin(tetardCoin - coutTotal);
-      setNiveauAmelioration1(niveauAmelioration1 + amount);
-    }
-  };
+ useEffect(() => {
+  const passiveGenerationInterval = setInterval(() => {
+    incrementTetardCoin(tetardCoin + incrementPerSecond); // Utilisez incrementPerSecond pour incrémenter tetardCoin.
+  }, 1000);
 
-  const acheterAmelioration2 = (amount) => {
-    const coutTotal = Math.floor(50 * Math.pow(1.1, niveauAmelioration2)) * amount;
-    if (tetardCoin >= coutTotal) {
-      setTetardCoin(tetardCoin - coutTotal);
-      setNiveauAmelioration2(niveauAmelioration2 + amount);
-    }
-  };
+  return () => clearInterval(passiveGenerationInterval);
+}, [incrementPerSecond, tetardCoin, incrementTetardCoin]);
+
 
   const handleIncrement = () => {
-    setTetardCoin(tetardCoin + niveauAmelioration1);
+    incrementTetardCoin(incrementClick);
   };
-
-  useEffect(() => {
-    const passiveGenerationInterval = setInterval(() => {
-      setTetardCoin((prevTetardCoin) => prevTetardCoin + niveauAmelioration2);
-    }, 1000);
-
-    return () => clearInterval(passiveGenerationInterval);
-  }, [niveauAmelioration1, niveauAmelioration2]);
 
   return (
     <div className="App">
       <h1>Waifu : {WaifuBanq[0].name}</h1>
       <img src={WaifuBanq[0].imgSrc} alt={WaifuBanq[0].name} />
 
-      <button onClick={handleIncrement}>
-        Cliquez pour obtenir des TetardCoin (Niveau {niveauAmelioration1})
+      <p className="tetardCoin">TetardCoin : {tetardCoin}</p>
+
+      <button className="tetardCoinBtn" onClick={handleIncrement}>
+        TetardCoin
       </button>
 
-      <Ameliorations
-        tetardCoin={tetardCoin} // Utilisez tetardCoin directement ici
-        onAmelioration1={acheterAmelioration1}
-        onAmelioration2={acheterAmelioration2}
-        niveauAmelioration2={niveauAmelioration2} // Passez le niveau d'Amelioration 2
-        setTetardCoin={setTetardCoin} // Assurez-vous que setTetardCoin est correctement transmis
-      />
+      <p className="tetardCoinClick">
+        Taux de génération actif : Lv.{incrementClick} par onClick
+      </p>
+      <p className="tetardCoinPassif">
+        Taux de génération passif : Lv.({incrementPerSecond}) par seconde
+      </p>
+
+      <Ameliorations />
     </div>
   );
 }

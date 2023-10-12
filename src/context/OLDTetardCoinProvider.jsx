@@ -3,7 +3,11 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 export const TetardCoinContext = createContext();
 
 export const useTetardCoin = () => {
-  return useContext(TetardCoinContext);
+  const context = useContext(TetardCoinContext);
+  if (!context) {
+    throw new Error("useTetardCoin must be used within a TetardCoinProvider");
+  }
+  return context;
 };
 
 export function TetardCoinProvider({ children }) {
@@ -23,11 +27,19 @@ export function TetardCoinProvider({ children }) {
     return () => clearInterval(passiveGenerationInterval);
   }, [incrementPerSecond]);
 
+  const contextValue = {
+    tetardCoin,
+    setTetardCoin,
+    incrementClick,
+    setIncrementClick,
+    incrementPerSecond,
+    setIncrementPerSecond,
+    incrementTetardCoin,
+  };
+
   return (
-    <TetardCoinContext.Provider value={{ tetardCoin, setTetardCoin, incrementClick, incrementTetardCoin }}>
+    <TetardCoinContext.Provider value={contextValue}>
       {children}
     </TetardCoinContext.Provider>
   );
 }
-
-export default TetardCoinProvider;

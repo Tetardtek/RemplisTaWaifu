@@ -4,7 +4,7 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: #F0BDCE;
   background-color: #242424;
 
   font-synthesis: none;
@@ -17,7 +17,7 @@
 a {
   font-weight: 500;
   color: #646cff;
-  text-decoration: inherit;
+  text-decoration: none;
 }
 a:hover {
   color: #535bf2;
@@ -29,6 +29,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  flex-direction: column;
 }
 
 h1 {
@@ -68,6 +69,102 @@ button:focus-visible {
   }
 }
 
+/* NAVBAR + SUB-MENU */
+
+/* .sub-menu {
+  transform: scale(0);
+  transform-origin: top center;
+  transition: all 300ms ease-in-out;
+  color: var(--purple);
+}
+.sub-menu li {
+  font-size: 14px;
+  background: var(--purple);
+  padding: 10px 10px;
+  color: var(--white);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transform: scale(0);
+  transform-origin: top center;
+  transition: all 300ms ease-in-out;
+}
+.sub-menu li:last-child {
+  border-bottom: 0;
+}
+.sub-menu li:hover {
+  background: var(--white);
+  color: var(--purple);
+}
+.menu > li:hover .sub-menu li {
+  transform: scale(1);
+}
+.menu > li:hover .sub-menu {
+  transform: scale(1); 
+}
+*/
+
+header#navbar {
+  box-shadow: 3px 3px 3px 3px #00000077;
+  display: flex;
+  color: #CAE472; 
+  border-radius: 5px;
+  block-size: 5em;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  margin-block: 1em;
+}
+
+.menu {
+  display: inline-block;
+}
+
+menu:hover {
+  color: white;
+}
+
+.menu > li {
+  float: left;
+  color: white;
+  width: 140px;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  font-size: 1em;
+}
+section#pkmnName {
+  display: flex;
+  background-color: red;
+  
+}
+ul.menu {
+display: flex;
+list-style: none;
+}
+
+/* WaifuCard */
+div.waifu-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.energy-bar {
+  width: 80%;
+  height: 4px; /* Ajustez la hauteur selon vos besoins */
+  background-color: #DF7AA7; /* Couleur de fond de la barre d'énergie */
+}
+
+.energy-fill {
+  height: 100%;
+  background-color: #F0BDCE; /* Couleur de remplissage de la barre d'énergie */
+  transition: width 0.5s; /* Animation de la largeur de remplissage */
+}
+button.energyBtn {
+  margin: 1em;
+}
+button.waifuSw {
+  margin: 1em;
+}
+
 /* TetardCoinCARD  */
 div.tetardCoin {
   display: flex;
@@ -104,4 +201,11 @@ div.divAmelioPassives {
 }
 button.amelioPassives {
   margin: 0.2em;
+}
+
+
+/* FOOTER */
+footer {
+  color: #DF7AA7;
+  background-color: #CAE472;
 }

@@ -1,4 +1,3 @@
-// TetardCoinContext.js
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export const TetardCoinContext = createContext();
@@ -27,6 +26,27 @@ export function TetardCoinProvider({ children }) {
     updateTetardCoin(amount);
   };
 
+  const setIncrementClick = (amount) => {
+    setState((prev) => ({
+      ...prev,
+      incrementClick: amount,
+    }));
+  };
+
+  const setIncrementPerSecond = (amount) => {
+    setState((prev) => ({
+      ...prev,
+      incrementPerSecond: amount,
+    }));
+  };
+
+  const setTetardCoin = (amount) => {
+    setState((prev) => ({
+      ...prev,
+      tetardCoin: amount,
+    }));
+  };
+
   useEffect(() => {
     const passiveGenerationInterval = setInterval(() => {
       updateTetardCoin(state.incrementPerSecond);
@@ -38,6 +58,9 @@ export function TetardCoinProvider({ children }) {
   const contextValue = {
     ...state,
     incrementTetardCoin,
+    setIncrementClick,
+    setIncrementPerSecond,
+    setTetardCoin,
   };
 
   return (

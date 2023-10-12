@@ -9,7 +9,9 @@ function TetardCoinIncrementAction() {
   };
 
   return (
-    <button onClick={handleIncrement}>Cliquez pour obtenir plus de TetardCoin</button>
+    <button className="tetardCoinBtn" onClick={handleIncrement}>
+      TetardCoin
+    </button>
   );
 }
 

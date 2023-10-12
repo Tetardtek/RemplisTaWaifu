@@ -1,30 +1,40 @@
-import React, { useState, useMemo } from "react";
+import React from "react";
+import { useTetardCoin } from "../context/TetardCoinContext";
 
-function Ameliorations({ tetardCoin, setTetardCoin }) {
-  const [amelioration1Niveau, setAmelioration1Niveau] = useState(1);
-  const [amelioration2Niveau, setAmelioration2Niveau] = useState(1);
+function Ameliorations() {
+  const {
+    tetardCoin,
+    incrementClick,
+    setTetardCoin,
+    setIncrementClick,
+    incrementPerSecond,
+    setIncrementPerSecond,
+  } = useTetardCoin();
 
-  const basePrix = 50;
-  const tauxIncrementation = 0.1;
+  // Définir les tableaux en dehors de la fonction acheterAmelioration
+  const activePrices = [50, 150, 500, 5000];
+  const passivePrices = [50, 150, 500, 5000];
+  const activeIncrementValues = [1, 3, 10, 100];
+  const passiveIncrementValues = [1, 3, 10, 100];
 
-  const amelioration1Prix = useMemo(() => Math.floor(basePrix * Math.pow(1 + tauxIncrementation, amelioration1Niveau - 1)), [amelioration1Niveau]);
-  const amelioration2Prix = useMemo(() => Math.floor(basePrix * Math.pow(1 + tauxIncrementation, amelioration2Niveau - 1)), [amelioration2Niveau]);
+  const acheterAmelioration = (type, amount) => {
+    const prices = type === "actif" ? activePrices : passivePrices;
+    const incrementValues = type === "actif" ? activeIncrementValues : passiveIncrementValues;
 
-  const acheterAmelioration = (amelioration, amount) => {
-    const coutTotal = amelioration === 1 ? amelioration1Prix * amount : amelioration2Prix * amount;
+    const price = prices[amount - 1];
+    const incrementValue = incrementValues[amount - 1];
 
-    if (coutTotal <= tetardCoin) {
-      if (amelioration === 1) {
-        setAmelioration1Niveau(amelioration1Niveau + amount);
-      } else if (amelioration === 2) {
-        setAmelioration2Niveau(amelioration2Niveau + amount);
+    if (tetardCoin >= price) {
+      if (type === "actif") {
+        setIncrementClick(incrementClick + incrementValue);
+      } else if (type === "passif") {
+        setIncrementPerSecond(incrementPerSecond + incrementValue);
       }
-
-      setTetardCoin(tetardCoin - coutTotal);
+      setTetardCoin(tetardCoin - price);
     } else {
       console.log("Pas assez de TetardCoin pour acheter cette amélioration.");
     }
-  }
+  };
 
   return (
     <div className="divMagasinAmelio">
@@ -33,18 +43,20 @@ function Ameliorations({ tetardCoin, setTetardCoin }) {
         <p>Améliorations Actives :</p>
         {[1, 3, 10, 100].map((amount) => (
           <div key={amount}>
-            Price: <button className="amelioActives" onClick={() => acheterAmelioration(1, amount)}>
-              {Math.floor(amelioration1Prix * amount)} - (+{amount})
+            Price: {activePrices[amount - 1]} - (+{amount})
+            <button className="amelioActives" onClick={() => acheterAmelioration("actif", amount)}>
+              Acheter
             </button>
           </div>
         ))}
       </div>
       <div className="divAmelioPassives">
         <p>Améliorations Passives :</p>
-        {[1, 3, 10, 100].map (amount => (
+        {[1, 3, 10, 100].map((amount) => (
           <div key={amount}>
-            Price: <button className="amelioPassives" onClick={() => acheterAmelioration(2, amount)}>
-              {Math.floor(amelioration2Prix * amount)} - (+{amount})
+            Price: {passivePrices[amount - 1]} - (+{amount})
+            <button className="amelioPassives" onClick={() => acheterAmelioration("passif", amount)}>
+              Acheter
             </button>
           </div>
         ))}

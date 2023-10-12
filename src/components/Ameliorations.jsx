@@ -11,7 +11,6 @@ function Ameliorations() {
     setIncrementPerSecond,
   } = useTetardCoin();
 
-  // Définir les tableaux en dehors de la fonction acheterAmelioration
   const activePrices = [50, 150, 500, 5000];
   const passivePrices = [50, 150, 500, 5000];
   const activeIncrementValues = [1, 3, 10, 100];
@@ -41,9 +40,9 @@ function Ameliorations() {
       <h2>Magasin d'Améliorations</h2>
       <div className="divAmelioActives">
         <p>Améliorations Actives :</p>
-        {[1, 3, 10, 100].map((amount) => (
+        {[1, 2, 3, 4].map((amount) => (
           <div key={amount}>
-            Price: {activePrices[amount - 1]} - (+{amount})
+            Price: {activePrices[amount - 1]} - (+{activeIncrementValues[amount - 1]})
             <button className="amelioActives" onClick={() => acheterAmelioration("actif", amount)}>
               Acheter
             </button>
@@ -52,9 +51,9 @@ function Ameliorations() {
       </div>
       <div className="divAmelioPassives">
         <p>Améliorations Passives :</p>
-        {[1, 3, 10, 100].map((amount) => (
+        {[1, 2, 3, 4].map((amount) => (
           <div key={amount}>
-            Price: {passivePrices[amount - 1]} - (+{amount})
+            Price: {passivePrices[amount - 1]} - (+{passiveIncrementValues[amount - 1]})
             <button className="amelioPassives" onClick={() => acheterAmelioration("passif", amount)}>
               Acheter
             </button>

@@ -6,7 +6,7 @@ function TetardCoin() {
   const { tetardCoin } = useTetardCoin();
 
   return (
-    <div>
+    <div className="tetardCoin">
       <h2>TetardCoin</h2>
       <p>TetardCoin : {tetardCoin}</p>
       <TetardCoinIncrementAction />

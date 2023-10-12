@@ -67,3 +67,41 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* TetardCoinCARD  */
+div.tetardCoin {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* MagasinCARD */
+
+div.divMagasinAmelio {
+  display: flex;
+  margin : 1em;
+  /* justify-content: space-between; */
+  flex-direction: column;
+  align-items: center;
+}
+/* AmelioActives */
+div.divAmelioActives {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+button.amelioActives {
+  margin: 0.2em;
+}
+/* Amelio Passives */
+div.divAmelioPassives {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+button.amelioPassives {
+  margin: 0.2em;
+}

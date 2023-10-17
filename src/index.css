@@ -147,6 +147,9 @@ div.waifu-card {
   flex-direction: column;
   align-items: center;
 }
+img {
+  width: 320px;
+}
 .energy-bar {
   width: 80%;
   height: 4px; /* Ajustez la hauteur selon vos besoins */

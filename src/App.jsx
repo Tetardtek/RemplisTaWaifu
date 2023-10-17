@@ -5,6 +5,39 @@ import Ameliorations from "./components/TetardCoin/Ameliorations";
 import WaifuCard from "./components/WaifuCard/WaifuCard";
 import WaifuBanq from "./components/WaifuCard/WaifuBanq";
 
+// API
+const apiUrl = 'https://api.waifu.im/search';
+const params = {
+  included_tags: 'maid',
+  height: '>=2000'
+};
+
+const queryParams = new URLSearchParams(params);
+const requestUrl = `${apiUrl}?${queryParams}`;
+
+fetch(requestUrl)
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Request failed with status code: ' + response.status);
+    }
+  })
+  .then(data => {
+    if (data && data.images && Array.isArray(data.images) && data.images.length > 0) {
+      const url = data.images[0]; // Access the URL property
+      console.log('Extracted URL:', url);
+    } else {
+      console.log('No URL found in the response.');
+    }
+  })
+  .catch(error => {
+    console.error('An error occurred:', error.message);
+  });
+
+
+  // FONCTION
+
 function App() {
   const { incrementClick, incrementPerSecond } = useTetardCoin();
 
@@ -21,8 +54,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Waifu : {currentWaifu.name}</h1>
-      <img src={currentWaifu.imgSrc} alt={currentWaifu.name} />
+      <h1>Remplis : {currentWaifu.name}</h1>
 
       <WaifuCard
         waifu={currentWaifu}

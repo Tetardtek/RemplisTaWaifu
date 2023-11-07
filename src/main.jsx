@@ -1,11 +1,11 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './index.css';
-import { TetardCoinProvider } from './components/TetardCoinContext';
+import { TetardCoinProvider } from './components/TetardCoin/TetardCoinContext';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+const rootElement = document.getElementById('root');
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <TetardCoinProvider>
       <App />

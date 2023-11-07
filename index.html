@@ -4,10 +4,21 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Remplis ta Waifu !</title>
+    <link rel="stylesheet" href="./src/index.css" />
+    <title>Remplis ta Waifu!</title>
   </head>
   <body>
+    <header id="navbar">
+      <script>
+        fetch("./navbar.html")
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById("navbar").innerHTML = data;
+          });
+      </script>
+      </header>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <footer>© ♪♫ Tetardtek - KassTrollRock - JuraScrîpt</footer>
   </body>
 </html>

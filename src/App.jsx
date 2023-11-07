@@ -1,41 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import WaifuBanq from './components/WaifuBanq';
-import Ameliorations from './components/Ameliorations';
+import React, { useState } from "react";
+import { useTetardCoin } from "./components/TetardCoin/TetardCoinContext";
+import TetardCoin from "./components/TetardCoin/TetardCoin";
+import Ameliorations from "./components/TetardCoin/Ameliorations";
+import WaifuCard from "./components/WaifuCard/WaifuCard";
+import WaifuBanq from "./components/WaifuCard/WaifuBanq";
+
+// API
+const apiUrl = 'https://api.waifu.im/search';
+const params = {
+  included_tags: 'maid',
+  height: '>=2000'
+};
+
+const queryParams = new URLSearchParams(params);
+const requestUrl = `${apiUrl}?${queryParams}`;
+
+fetch(requestUrl)
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Request failed with status code: ' + response.status);
+    }
+  })
+  .then(data => {
+    if (data && data.images && Array.isArray(data.images) && data.images.length > 0) {
+      const url = data.images[0]; // Access the URL property
+      console.log('Extracted URL:', url);
+    } else {
+      console.log('No URL found in the response.');
+    }
+  })
+  .catch(error => {
+    console.error('An error occurred:', error.message);
+  });
+
+
+  // FONCTION
 
 function App() {
-  const [tetardCoin, setTetardCoin] = useState(0);
-  const [niveauAmelioration1, setNiveauAmelioration1] = useState(0);
-  const [niveauAmelioration2, setNiveauAmelioration2] = useState(0);
+  const { incrementClick, incrementPerSecond } = useTetardCoin();
 
-  // Cette fonction gère l'incrémentation du TetardCoin lorsque l'utilisateur clique
-  const handleIncrement = () => {
-    setTetardCoin((prevTetardCoin) => prevTetardCoin + 1);
+  const [currentWaifu, setCurrentWaifu] = useState(getRandomWaifu());
+
+  function getRandomWaifu() {
+    const randomIndex = Math.floor(Math.random() * WaifuBanq.length);
+    return { ...WaifuBanq[randomIndex] };
+  }
+
+  const handleWaifuUpdate = () => {
+    setCurrentWaifu(getRandomWaifu());
   };
-
-  useEffect(() => {
-    // Cette fonction augmente le niveau des améliorations passives et actives toutes les secondes
-    const interval = setInterval(() => {
-      setTetardCoin((prevTetardCoin) => prevTetardCoin + niveauAmelioration1 + niveauAmelioration2);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [niveauAmelioration1, niveauAmelioration2]);
 
   return (
     <div className="App">
-      <h1>Waifu : {WaifuBanq[0].name}</h1>
-      <img src={WaifuBanq[0].imgSrc} alt={WaifuBanq[0].desc} />
+      <h1>Remplis : {currentWaifu.name}</h1>
 
-      <button onClick={handleIncrement}>
-        Waifu : {WaifuBanq[0].name} {Math.floor(tetardCoin)}/{WaifuBanq[0].count}
-      </button>
-
-      <Ameliorations
-        tetardCoin={Math.floor(tetardCoin)}
-        setNiveauAmelioration1={setNiveauAmelioration1}
-        setNiveauAmelioration2={setNiveauAmelioration2}
+      <WaifuCard
+        waifu={currentWaifu}
+        onRandomWaifu={handleWaifuUpdate}
+        onWaifuUpdate={handleWaifuUpdate}
       />
+
+      <TetardCoin />
+
+      <p className="tetardCoinClick">
+        Taux de génération actif : Lv.{incrementClick} par onClick
+      </p>
+
+      <p className="tetardCoinPassif">
+        Taux de génération passif : Lv.{incrementPerSecond} par seconde
+      </p>
+
+      <Ameliorations />
     </div>
   );
 }

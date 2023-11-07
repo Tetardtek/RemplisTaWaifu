@@ -1,5 +1,4 @@
-import React from "react";
-import { useTetardCoin } from "./TetardCoinContext";
+import { useTetardCoin } from "./contexts/UseTetardCoinContext";
 
 function TetardCoinIncrementAction() {
   const { incrementClick, incrementTetardCoin } = useTetardCoin();

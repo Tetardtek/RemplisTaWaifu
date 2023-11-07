@@ -1,10 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
 export const TetardCoinContext = createContext();
-
-export const useTetardCoin = () => {
-  return useContext(TetardCoinContext);
-};
 
 export function TetardCoinProvider({ children }) {
   const [tetardCoin, setTetardCoin] = useState(0);
@@ -28,6 +25,8 @@ export function TetardCoinProvider({ children }) {
     setTetardCoin,
     incrementClick,
     incrementTetardCoin,
+    setIncrementClick,
+    setIncrementPerSecond,
   };
 
   return (
@@ -36,3 +35,7 @@ export function TetardCoinProvider({ children }) {
     </TetardCoinContext.Provider>
   );
 }
+
+TetardCoinProvider.propTypes = {
+  children: PropTypes.node,
+};

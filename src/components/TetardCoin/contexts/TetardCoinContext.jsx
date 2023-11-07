@@ -1,10 +1,7 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
-export const TetardCoinContext = createContext(); // Renommé en TetardCoinContext
-
-export const useTetardCoin = () => {
-  return useContext(TetardCoinContext);
-};
+export const TetardCoinContext = createContext();
 
 export function TetardCoinProvider({ children }) {
   const initialState = {
@@ -69,3 +66,7 @@ export function TetardCoinProvider({ children }) {
     </TetardCoinContext.Provider>
   );
 }
+
+TetardCoinProvider.propTypes = {
+  children: PropTypes.node,
+};

@@ -1,5 +1,4 @@
-import React from "react";
-import { useTetardCoin } from "./TetardCoinContext";
+import { useTetardCoin } from "./contexts/UseTetardCoinContext";
 
 function Ameliorations() {
   const {
@@ -18,7 +17,8 @@ function Ameliorations() {
 
   const acheterAmelioration = (type, amount) => {
     const prices = type === "actif" ? activePrices : passivePrices;
-    const incrementValues = type === "actif" ? activeIncrementValues : passiveIncrementValues;
+    const incrementValues =
+      type === "actif" ? activeIncrementValues : passiveIncrementValues;
 
     const price = prices[amount - 1];
     const incrementValue = incrementValues[amount - 1];
@@ -37,13 +37,17 @@ function Ameliorations() {
 
   return (
     <div className="divMagasinAmelio">
-      <h2>Magasin d'Améliorations</h2>
+      <h2>Magasin d&apos;Améliorations</h2>
       <div className="divAmelioActives">
         <p>Améliorations Actives :</p>
         {[1, 2, 3, 4].map((amount) => (
           <div key={amount}>
-            Price: {activePrices[amount - 1]} - (+{activeIncrementValues[amount - 1]})
-            <button className="amelioActives" onClick={() => acheterAmelioration("actif", amount)}>
+            Price: {activePrices[amount - 1]} - (+
+            {activeIncrementValues[amount - 1]})
+            <button
+              className="amelioActives"
+              onClick={() => acheterAmelioration("actif", amount)}
+            >
               Acheter
             </button>
           </div>
@@ -53,8 +57,12 @@ function Ameliorations() {
         <p>Améliorations Passives :</p>
         {[1, 2, 3, 4].map((amount) => (
           <div key={amount}>
-            Price: {passivePrices[amount - 1]} - (+{passiveIncrementValues[amount - 1]})
-            <button className="amelioPassives" onClick={() => acheterAmelioration("passif", amount)}>
+            Price: {passivePrices[amount - 1]} - (+
+            {passiveIncrementValues[amount - 1]})
+            <button
+              className="amelioPassives"
+              onClick={() => acheterAmelioration("passif", amount)}
+            >
               Acheter
             </button>
           </div>

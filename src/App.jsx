@@ -6,6 +6,7 @@ import WaifuCard from "./components/WaifuCard/WaifuCard";
 import WaifuBanq from "./components/WaifuCard/WaifuBanq";
 
 // API
+
 const apiUrl = 'https://api.waifu.im/search';
 const params = {
   included_tags: 'maid',

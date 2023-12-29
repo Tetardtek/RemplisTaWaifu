@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/Tetardtek/Web/RemplisTaWaifu
+    - /bin/cp * $DEPLOYPATH

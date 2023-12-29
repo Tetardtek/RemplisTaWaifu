@@ -1,7 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 export const TetardCoinContext = createContext(); // Renommé en TetardCoinContext
-
 export const useTetardCoin = () => {
   return useContext(TetardCoinContext);
 };

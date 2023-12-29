@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/Tetardtek/Web/RemplisTaWaifu
+    - export DEPLOYPATH=/home/lozi2780/Tetardtek/Web/RemplisTaWaifu
     - /bin/cp * $DEPLOYPATH
